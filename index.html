@@ -4,16 +4,26 @@
     <meta charset="utf-8">
     <title>GOODREADS</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="app.js"></script>
+    <script src="app1.js"></script>
   </head>
   <body>
       <form id="form1" runat="server">
       <h2>Get Book Information</h2>
-      Author: <input type="text" id="authorTextbox" value="Patrick Rothfuss" /> <br />
-      Title: <input type="text" id="titleTextbox" value="The Name of the Wind" /> <br />
-      <input type="button" value="Get Book Information" id="getButton" onclick="getBookInformation()" />
-      <br /><br />
-      <div id="DataContainer" ></div>
-      </form>
+      Book Category:
+      <select id="subjectTextbox">
+        <option value = "hardcover-fiction">Hardcover Fiction</option>
+        <option value = "hardcover-nonfiction">Hardcover Non-Fiction</option>
+        <option value = "paperback-nonfiction">Paperback Non-Fiction</option>
+        <option value = "e-book-fiction">E-Book Fiction</option>
+        <option value = "combined-print-and-e-book-fiction">Combined Print and E-book Fiction</option>
+        <option value = "combined-print-and-e-book-nonfiction">Combined Print and E-book Non-Fiction</option>
+      </select>
+
+      <input type="button" value="Get Listing of Book Titles" id="getButton">
+      <input type="button" value="Get Pictures" id="getButton2">
+
+      <div id="DataContainer">
+      </div>
+    </form>
   </body>
 </html>

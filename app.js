@@ -1,46 +1,74 @@
 $(document).ready(function(){
 
-  //NY TIMES BOOK API - Best Seller List
-
-  // var url = "https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json";
-  // var apiKey = "016bb440492c4390905f4f3221aa960a";
-  // url += '?' + $.param({
-  //   'api-key': apiKey
-  // });
-  // console.log(url);
-  //
-  // $.ajax({
-  //   url: url,
-  //   method: 'GET',
-  // }).done(function(result) {
-  //   console.log(result);
-  // }).fail(function(err) {
-  //   throw err;
-  // });
-
 // Google Books Call
 
-var key = "AIzaSyB-uthXyrD9eKc_NIDFjcUjpSq7SEDbLjw";
-var urlStart = "https://www.googleapis.com/books/v1/volumes?q=";
-var search = "puppies";
-var subject = "fiction";
-var url = urlStart + search + "+subject:" + subject + "&key=" + key;
-// var url = ... + "q=" + search + "&key:" + key
-// & then define search bar as the search function
-  // url: 'https://www.googleapis.com/books/v1/volumes?q=vampire+subject:fiction&key=AIzaSyB-uthXyrD9eKc_NIDFjcUjpSq7SEDbLjw'
+// var key = "AIzaSyB-uthXyrD9eKc_NIDFjcUjpSq7SEDbLjw";
+// var urlStart = "https://www.googleapis.com/books/v1/volumes?q=";
+// var search = "";
+// var subject = "";
+//
+//   $("#getButton").on("click", function(){
+//
+//     search = $("#keywordTextbox").val();
+//     subject = $("#subjectTextbox").val();
+//
+//   var url = urlStart + search + "+subject:" + subject + "&key=" + key;
+//
+//   $.ajax({
+//       url: url,
+//       error: function(err) {console.error(err);},
+//       method: 'GET',
+//       data: {maxResults:40},
+//       success: function(data) {
+//         console.log(data);
+//         titles = [];
+//         for (var i=0; i<data.items.length; i++){
+//           var $newTitle = $("<p>");
+//           $newTitle = $newTitle.text(data.items[i].volumeInfo.title);
+//           $newTitle = $newTitle.attr("val", data.items[i].volumeInfo.title);
+//           $("#DataContainer").append($newTitle);
+//         }
+//
+//       }
+//     });
+//   });
+// });
 
 
-  $.ajax({
+
+
+  //NY TIMES BOOK API - Best Seller List
+
+  var url = "https://api.nytimes.com/svc/books/v3/lists.json";
+  var apiKey = "016bb440492c4390905f4f3221aa960a";
+
+  $("#getButton").on("click", function(){
+
+    var list = $("#subjectTextbox").val();
+
+    url += '?' + $.param({
+      'api-key': apiKey,
+      'list': list,
+    });
+    console.log(url);
+
+    $.ajax({
       url: url,
-      error: function(err) {console.error(err);},
       method: 'GET',
-      success: function(data) {
-        console.log(data.items[0].volumeInfo);
-        for (var i=0; i<data.items.length; i++){
-          console.log(data.items[i].volumeInfo.title);
-        }
+    }).done(function(result) {
+      console.log(result);
+      console.log(result.results[0].book_details[0].title);
+      titles = [];
+      for (var i=0; i<result.results.length; i++){
+      var $newTitle = $("<p>");
+      $newTitle = $newTitle.text(result.results[i].book_details[0].title);
+      $newTitle = $newTitle.attr("val", result.results[i].book_details[0].title);
+      $("#DataContainer").append($newTitle);
       }
+    }).fail(function(err) {
+      throw err;
     });
 
-
   });
+
+});
